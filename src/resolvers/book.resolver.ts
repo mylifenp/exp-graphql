@@ -1,7 +1,12 @@
+import {
+  ResolversParentTypes,
+  type Book,
+  type MutationAddBookArgs,
+} from "../../resolvers-types.js";
 import { pubsub } from "../pubsub.js";
 import { withFilter } from "graphql-subscriptions";
 
-const books = [
+const books: Book[] = [
   {
     title: "The Awakening",
     author: "Kate Chopin 123",
@@ -17,7 +22,10 @@ export default {
     books: () => books,
   },
   Mutation: {
-    addBook: (parent: any, { input }: any) => {
+    addBook: (
+      parent: ResolversParentTypes,
+      { input }: MutationAddBookArgs
+    ): Book => {
       books.push(input);
       pubsub.publish("BOOK_ADDED", { bookAdded: input });
       return input;

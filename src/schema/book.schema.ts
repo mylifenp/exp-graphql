@@ -1,8 +1,9 @@
 export default `#graphql
   # This "Book" type defines the queryable fields for every book in our data source.
   type Book {
-    title: String
-    author: String
+    title: String!
+    author: String!
+    isbn: String
   }
 
   # The "Query" type is special: it lists all of the available queries that
@@ -12,13 +13,14 @@ export default `#graphql
     books: [Book]
   }
   extend type Mutation {
-    addBook(input: BookInput): Book
+    addBook(input: BookInput!): Book!
   }
   extend type Subscription {
     bookAdded: Book
   }
   input BookInput {
-    title: String
-    author: String
+    title: String!
+    author: String!
+    isbn: String
   }
 `;
