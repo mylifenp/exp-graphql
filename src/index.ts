@@ -11,15 +11,28 @@ import parser from "body-parser";
 import resolvers from "./resolvers/index.js";
 import typeDefs from "./schema/index.js";
 import config from "./config.js";
+import { Context } from "./utils.js";
+import { connectDb } from "./db.js";
+import pubsub from "./pubsub.js";
+import redisClient from "./redis.js";
+import models from "./models/index.js";
 
 const { PORT } = config;
 
-interface MyContext {
-  token?: String;
-}
+const shutdown = function () {
+  // clean up your resources and exit
+  console.log("cleaning up before shutdown");
+  process.exit();
+};
 
 const app = express();
 const httpServer = http.createServer(app);
+const db = await connectDb();
+
+if (!db) {
+  console.log("connection could not be established");
+  shutdown();
+}
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -32,7 +45,7 @@ const wsServer = new WebSocketServer({
 });
 const serverCleanup = useServer({ schema }, wsServer);
 
-const server = new ApolloServer<MyContext>({
+const server = new ApolloServer<Context>({
   schema,
   status400ForVariableCoercionErrors: true,
   plugins: [
@@ -54,7 +67,14 @@ app.use(
   cors<cors.CorsRequest>(),
   parser.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async ({ req, res }) => ({
+      req,
+      res,
+      db,
+      pubsub,
+      redisClient,
+      models,
+    }),
   })
 );
 
@@ -62,3 +82,13 @@ await new Promise<void>((resolve) =>
   httpServer.listen({ port: PORT }, resolve)
 );
 console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+
+process.on("SIGINT", function onSigint() {
+  console.log("terminating the service onSigint");
+  shutdown();
+});
+
+process.on("SIGTERM", function onSigterm() {
+  console.log("terminating the service onSigterm");
+  shutdown();
+});

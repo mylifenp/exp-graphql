@@ -32,3 +32,8 @@ apollo-service.jar
 /dist
 
 .env
+
+redis.conf
+redis.env
+
+.docker/
