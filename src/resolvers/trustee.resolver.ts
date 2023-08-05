@@ -7,7 +7,7 @@ import {
 } from "../../resolvers-types.js";
 import pubsub from "../pubsub.js";
 import { withFilter } from "graphql-subscriptions";
-import { Context } from "../utils.js";
+import { Context } from "../context.js";
 import { EVENTS } from "../subscriptions/index.js";
 
 export default {

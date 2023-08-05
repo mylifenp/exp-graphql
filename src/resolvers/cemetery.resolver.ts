@@ -7,7 +7,7 @@ import {
 import pubsub from "../pubsub.js";
 import { withFilter } from "graphql-subscriptions";
 import redisClient from "../redis.js";
-import { Context } from "../utils.js";
+import { Context } from "../context.js";
 
 export default {
   Query: {
