@@ -19,13 +19,16 @@ export type Scalars = {
 
 export type Book = {
   __typename?: 'Book';
-  author?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  author: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  isbn?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
 };
 
 export type BookInput = {
-  author?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
+  author: Scalars['String']['input'];
+  isbn?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -127,6 +130,7 @@ export type ResolversTypes = ResolversObject<{
   BookInput: BookInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -139,6 +143,7 @@ export type ResolversParentTypes = ResolversObject<{
   BookInput: BookInput;
   Boolean: Scalars['Boolean']['output'];
   Date: Scalars['Date']['output'];
+  ID: Scalars['ID']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
@@ -146,8 +151,10 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type BookResolvers<ContextType = any, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = ResolversObject<{
-  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isbn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

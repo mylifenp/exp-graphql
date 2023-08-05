@@ -1,34 +1,27 @@
 import {
   ResolversParentTypes,
-  type Book,
   type MutationAddBookArgs,
 } from "../../resolvers-types.js";
-import { pubsub } from "../pubsub.js";
+import pubsub from "../pubsub.js";
 import { withFilter } from "graphql-subscriptions";
-
-const books: Book[] = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin 123",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
+import redisClient from "../redis.js";
+import { Context } from "../utils.js";
 
 export default {
   Query: {
-    books: () => books,
+    books: async (parent: ResolversParentTypes, {}, { models }: Context) =>
+      await models.Book.find(),
   },
   Mutation: {
-    addBook: (
+    addBook: async (
       parent: ResolversParentTypes,
-      { input }: MutationAddBookArgs
-    ): Book => {
-      books.push(input);
+      { input }: MutationAddBookArgs,
+      { pubsub, models }: Context
+    ) => {
+      const book = await models.Book.create({ ...input });
+      await redisClient.hset("book", input);
       pubsub.publish("BOOK_ADDED", { bookAdded: input });
-      return input;
+      return book;
     },
   },
   Subscription: {
