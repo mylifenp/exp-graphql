@@ -1,4 +1,6 @@
-import bookSchema from "./book.schema.js";
+import cemeterySchema from "./cemetery.schema.js";
+import misclSchema from "./miscl.schema.js";
+import trusteeSchema from "./trustee.schema.js";
 
 const linkSchema = `#graphql
   scalar Date
@@ -13,4 +15,4 @@ const linkSchema = `#graphql
   }
 `;
 
-export default [linkSchema, bookSchema];
+export default [linkSchema, misclSchema, trusteeSchema, cemeterySchema];
