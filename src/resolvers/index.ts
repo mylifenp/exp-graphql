@@ -1,5 +1,6 @@
-import bookResolver from "./book.resolver.js";
+import cemeteryResolver from "./cemetery.resolver.js";
+import trusteeResolver from "./trustee.resolver.js";
 
 const customScalarResolver = {};
 
-export default [customScalarResolver, bookResolver];
+export default [customScalarResolver, trusteeResolver, cemeteryResolver];

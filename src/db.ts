@@ -15,9 +15,9 @@ const options: ConnectOptions = {
 const connectDb = async (): Promise<typeof mongoose> => {
   mongoose.set("toJSON", {
     virtuals: true,
-    transform: (doc, converted) => {
-      delete converted._id;
-    },
+    // transform: (doc, converted) => {
+    //   delete converted._id;
+    // },
   });
   if (config.ENV === "test") {
     mongod = await MongoMemoryServer.create();

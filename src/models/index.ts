@@ -1,5 +1,6 @@
-import Book from "./book.model.js";
+import Cemetery from "./cemetery.model.js";
+import Trustee from "./trustee.model.js";
 
-const models = { Book };
+const models = { Trustee, Cemetery };
 
 export default models;
