@@ -19,7 +19,7 @@ export default {
       { pubsub, models }: Context
     ) => {
       const book = await models.Book.create({ ...input });
-      await redisClient.hset("book", input);
+      await redisClient.hset(`books:${book.id}`, input);
       pubsub.publish("BOOK_ADDED", { bookAdded: input });
       return book;
     },
