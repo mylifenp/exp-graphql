@@ -1,6 +1,7 @@
 export default `#graphql
   extend type Query {
     trustee(id: ID!): Trustee
+    test: Test
   }
   extend type Mutation {
     addTrustee(input: AddTrusteeInput!): Trustee
@@ -8,6 +9,10 @@ export default `#graphql
   }
   extend type Subscription {
     trusteeUpdated: TrusteeUpdated!
+  }
+  type Test {
+    id: String
+    email: String
   }
   
   type Trustee {

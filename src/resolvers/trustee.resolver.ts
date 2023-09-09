@@ -12,6 +12,9 @@ import { EVENTS } from "../subscriptions/index.js";
 
 export default {
   Query: {
+    test: async (parent: ResolversParentTypes, args: any, { me }: Context) => {
+      return me;
+    },
     trustee: async (
       parent: ResolversParentTypes,
       { id }: QueryTrusteeArgs,

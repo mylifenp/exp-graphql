@@ -16,6 +16,7 @@ import { connectDb } from "./db.js";
 import pubsub from "./pubsub.js";
 import redisClient from "./redis.js";
 import models from "./models/index.js";
+import authenticateToken from "./lib/authentication.js";
 
 const { PORT } = config;
 
@@ -74,6 +75,7 @@ app.use(
       pubsub,
       redisClient,
       models,
+      me: authenticateToken(req),
     }),
   })
 );

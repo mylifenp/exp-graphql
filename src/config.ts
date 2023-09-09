@@ -9,4 +9,5 @@ export default {
   DATABASE_NAME: process.env.DATABASE_NAME ?? "test",
   DATABASE_USER: process.env.DATABASE_USER ?? "root",
   DATABASE_PASSWORD: process.env.DATABASE_PASSWORD ?? "root",
+  AUTH_PUBLIC_KEY: process.env.AUTH_PUBLIC_KEY ?? "",
 };
