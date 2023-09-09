@@ -11,7 +11,7 @@ export default `#graphql
     trusteeUpdated: TrusteeUpdated!
   }
   type Test {
-    id: String
+    name: String
     email: String
   }
 
