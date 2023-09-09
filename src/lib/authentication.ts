@@ -25,7 +25,7 @@ export default function authenticateToken(req: Request) {
   if (config.ENV === "development") {
     return fakeUser;
   }
-  const token = req.headers.token as string;
+  const token = req.headers.access_token as string;
   const id_token = req.headers.id_token as string;
   if (!token) {
     throw authenticationErrors("No token provided");
