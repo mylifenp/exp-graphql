@@ -1,5 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { WebSocketServer } from "ws";
@@ -46,22 +47,28 @@ const wsServer = new WebSocketServer({
 });
 const serverCleanup = useServer({ schema }, wsServer);
 
+const basicPlugins = [
+  ApolloServerPluginDrainHttpServer({ httpServer }),
+  {
+    async serverWillStart() {
+      return {
+        async drainServer() {
+          await serverCleanup.dispose();
+        },
+      };
+    },
+  },
+];
+
+const developmentPlugins =
+  config.ENV === "development" ? [] : [ApolloServerPluginLandingPageDisabled()];
+
 const server = new ApolloServer<Context>({
   schema,
   status400ForVariableCoercionErrors: true,
-  plugins: [
-    ApolloServerPluginDrainHttpServer({ httpServer }),
-    {
-      async serverWillStart() {
-        return {
-          async drainServer() {
-            await serverCleanup.dispose();
-          },
-        };
-      },
-    },
-  ],
+  plugins: [...basicPlugins, ...developmentPlugins],
 });
+
 await server.start();
 app.use(
   "/graphql",

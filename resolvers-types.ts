@@ -127,6 +127,7 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']['output']>;
   cemetery?: Maybe<Cemetery>;
+  test?: Maybe<Test>;
   trustee?: Maybe<Trustee>;
 };
 
@@ -144,6 +145,12 @@ export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']['output']>;
   trusteeUpdated: TrusteeUpdated;
+};
+
+export type Test = {
+  __typename?: 'Test';
+  email?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
 };
 
 export type Trustee = {
@@ -257,6 +264,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
+  Test: ResolverTypeWrapper<Test>;
   Trustee: ResolverTypeWrapper<Trustee>;
   TrusteeUpdated: ResolverTypeWrapper<TrusteeUpdated>;
 }>;
@@ -282,6 +290,7 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String']['output'];
   Subscription: {};
+  Test: Test;
   Trustee: Trustee;
   TrusteeUpdated: TrusteeUpdated;
 }>;
@@ -341,12 +350,19 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   cemetery?: Resolver<Maybe<ResolversTypes['Cemetery']>, ParentType, ContextType, RequireFields<QueryCemeteryArgs, 'id'>>;
+  test?: Resolver<Maybe<ResolversTypes['Test']>, ParentType, ContextType>;
   trustee?: Resolver<Maybe<ResolversTypes['Trustee']>, ParentType, ContextType, RequireFields<QueryTrusteeArgs, 'id'>>;
 }>;
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
   _?: SubscriptionResolver<Maybe<ResolversTypes['Boolean']>, "_", ParentType, ContextType>;
   trusteeUpdated?: SubscriptionResolver<ResolversTypes['TrusteeUpdated'], "trusteeUpdated", ParentType, ContextType>;
+}>;
+
+export type TestResolvers<ContextType = any, ParentType extends ResolversParentTypes['Test'] = ResolversParentTypes['Test']> = ResolversObject<{
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type TrusteeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trustee'] = ResolversParentTypes['Trustee']> = ResolversObject<{
@@ -379,6 +395,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  Test?: TestResolvers<ContextType>;
   Trustee?: TrusteeResolvers<ContextType>;
   TrusteeUpdated?: TrusteeUpdatedResolvers<ContextType>;
 }>;

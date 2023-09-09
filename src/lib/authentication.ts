@@ -9,9 +9,22 @@ ${config.AUTH_PUBLIC_KEY}
 -----END PUBLIC KEY-----
 `;
 
+const fakeUser = {
+  name: "Fake User",
+  email_verified: true,
+  preferred_username: "fakeuser",
+  email: "fake@test.de",
+  org_roles: {},
+  given_name: "Fake",
+  family_name: "User",
+};
+
 const removeBearer = (token: string) => token.replace("Bearer ", "");
 
 export default function authenticateToken(req: Request) {
+  if (config.ENV === "development") {
+    return fakeUser;
+  }
   const token = req.headers.token as string;
   const id_token = req.headers.id_token as string;
   if (!token) {
