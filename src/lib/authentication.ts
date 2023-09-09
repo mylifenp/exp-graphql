@@ -1,5 +1,5 @@
 import { Request } from "express";
-import jwt, { JwtPayload, TokenExpiredError } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../config.js";
 import { authenticationErrors } from "./errors.js";
 
@@ -24,16 +24,31 @@ export default function authenticateToken(req: Request) {
   try {
     validateToken(removeBearer(token)) as JwtPayload;
   } catch (err) {
-    if (err instanceof TokenExpiredError) {
+    if (err instanceof jwt.TokenExpiredError) {
       throw authenticationErrors("Token expired");
     }
     throw authenticationErrors("The provided token could not be verified");
   }
   try {
     const tokenInfo = validateToken(removeBearer(id_token)) as JwtPayload;
-    console.log("tokenInfo", tokenInfo.org_roles);
-    const { sid, email } = validateToken(removeBearer(id_token)) as JwtPayload;
-    return { id: sid, email };
+    const {
+      name,
+      email_verified,
+      preferred_username,
+      email,
+      org_roles,
+      given_name,
+      family_name,
+    } = tokenInfo;
+    return {
+      name,
+      email_verified,
+      preferred_username,
+      email,
+      org_roles,
+      given_name,
+      family_name,
+    };
   } catch (err) {
     throw authenticationErrors("Token could not be verified");
   }

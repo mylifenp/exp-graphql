@@ -14,7 +14,7 @@ export default `#graphql
     id: String
     email: String
   }
-  
+
   type Trustee {
     id: ID!
     name: String
