@@ -14,9 +14,11 @@
     "types": ["node"],
     "paths": {
       "@generated/*": ["./src/generated/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@models/*": ["./src/models/*"],
       "@resolvers/*": ["./src/resolvers/*"],
-      "@schema/*": ["./src/schema/*"],
-      "@helpers/*": ["./src/helpers/*"]
+      "@schema/*": ["./src/schema/*"]
     }
   }
 }

@@ -12,7 +12,7 @@ import parser from "body-parser";
 import resolvers from "./resolvers/index.js";
 import typeDefs from "./schema/index.js";
 import config from "./config.js";
-import { Context } from "./context.js";
+import { Context } from "@helpers/interfaces.js";
 import { connectDb } from "./db.js";
 import pubsub from "./pubsub.js";
 import redisClient from "./redis.js";
