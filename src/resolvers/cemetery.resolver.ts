@@ -3,11 +3,11 @@ import {
   MutationAddCemeteryArgs,
   QueryCemeteryArgs,
   ResolversParentTypes,
-} from "../../resolvers-types.js";
-import pubsub from "../pubsub.js";
-import { withFilter } from "graphql-subscriptions";
+} from "@generated/resolvers-types.js";
+// import pubsub from "../pubsub.js";
+// import { withFilter } from "graphql-subscriptions";
 import redisClient from "../redis.js";
-import { Context } from "../context.js";
+import { Context } from "@helpers/interfaces.js";
 
 export default {
   Query: {

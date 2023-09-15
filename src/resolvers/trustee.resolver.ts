@@ -4,10 +4,10 @@ import {
   QueryTrusteeArgs,
   ResolversParentTypes,
   Trustee,
-} from "../../resolvers-types.js";
+} from "@generated/resolvers-types.js";
 import pubsub from "../pubsub.js";
 import { withFilter } from "graphql-subscriptions";
-import { Context } from "../context.js";
+import { Context } from "@helpers/interfaces.js";
 import { EVENTS } from "../subscriptions/index.js";
 
 export default {

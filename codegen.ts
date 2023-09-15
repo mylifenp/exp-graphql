@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   schema: "http://localhost:8080/graphql",
   watch: false,
   generates: {
-    "./resolvers-types.ts": {
+    "./src/generated/resolvers-types.ts": {
       config: {
         useIndexSignature: true,
       },
