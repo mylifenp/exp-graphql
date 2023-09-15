@@ -22,11 +22,11 @@ const unknownUser = {
 const removeBearer = (token: string) => token.replace("Bearer ", "");
 
 export default function authenticateToken(req: Request) {
-  if (config.ENV === "development") {
-    return unknownUser;
-  }
   const token = req.headers.access_token as string;
   const id_token = req.headers.id_token as string;
+  if (typeof token === "undefined" || typeof id_token === "undefined") {
+    return unknownUser;
+  }
   if (!token) {
     throw authenticationErrors("No token provided");
   }

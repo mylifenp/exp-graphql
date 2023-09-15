@@ -1,12 +1,13 @@
 version: "3.9"
 services:
   backend:
-    container_name: backend
-    hostname: backend
-    restart: always
+    container_name: "backend"
+    hostname: "backend"
+    restart: "always"
     env_file:
       - .env
-    build: npm run start
+    build: .
+    # build: npm run start
     volumes:
       - .:/app
       - /app/node_modules
